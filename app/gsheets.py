@@ -1,5 +1,5 @@
-import asyncio
 import gspread_asyncio
+from gspread_formatting import *
 
 from google.oauth2.service_account import Credentials
 
@@ -18,7 +18,7 @@ def get_creds():
 agcm = gspread_asyncio.AsyncioGspreadClientManager(get_creds)
 
 
-async def sheet_write(agcm, text):
+async def sheet_write(agcm, name, date, client, employee, responsible):
     agc = await agcm.authorize()
 
     sh = await agc.open("апи тест")
@@ -31,6 +31,11 @@ async def sheet_write(agcm, text):
         i += 1
         cell = await sh.cell(i, 1)
 
-    await sh.update_cell(i, 1, text)
-
+    await sh.update_cell(i, 2, name)
+    await sh.update_cell(i, 7, date)
+    await sh.update_cell(i, 9, client)
+    await sh.update_cell(i, 10, employee)
+    await sh.update_cell(i, 11, responsible)
+    
+    
 
