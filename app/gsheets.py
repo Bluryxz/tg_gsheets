@@ -31,7 +31,7 @@ async def sheet_write(agcm, name, date, client, employee, responsible):
     while cell.value != None:
 
         try:
-            if int(cell.value) > number:
+            if int(cell.value) >= number:
                 number = int(cell.value) + 1
         except ValueError:
             pass
@@ -45,6 +45,21 @@ async def sheet_write(agcm, name, date, client, employee, responsible):
     await sh.update_cell(i, 9, client)
     await sh.update_cell(i, 10, employee)
     await sh.update_cell(i, 11, responsible)
+
+    if i % 2 != 0:
+        color = Color(0.972549112, 0.976470681, 0.98039225)
+    else:
+        color = Color(1, 1, 1)
+
+    border = Border(style='solid', width=1)
+
+    fmt = CellFormat(
+        backgroundColor=color,
+        textFormat=TextFormat(fontFamily='Arial', foregroundColor=Color(0.31372549, 0.31372549, 0.31372549)),
+        borders=Borders(top=border, bottom=border, left=border, right=border)     
+    )
+
+    format_cell_range(sh.ws, f'A{i}:P{i}', fmt)
     
     
 
