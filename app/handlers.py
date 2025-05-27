@@ -2,7 +2,7 @@ from aiogram import Router
 from aiogram.types import Message
 
 from app.gsheets import sheet_write, agcm
-from app.funcs import find_word, remove_prespace, remove_afterorphofraphy
+from app.funcs import find_word, remove_orphofraphy
 
 rt = Router()
 
@@ -19,14 +19,14 @@ async def write(message: Message):
     responsible_pos = await find_word(text, 'исполнитель')
     
     name = text[:client_pos]
-    client = text[client_pos + 13:employee_pos]
-    employee = text[employee_pos + 12:responsible_pos]
-    responsible = text[responsible_pos + 14:]
+    client = text[client_pos + 12:employee_pos]
+    employee = text[employee_pos + 11:responsible_pos]
+    responsible = text[responsible_pos + 13:]
 
-    client = await remove_prespace(client)
-    employee = await remove_prespace(employee)
-    responsible = await remove_prespace(responsible)
-    responsible = await remove_afterorphofraphy(responsible)
+    name = await remove_orphofraphy(name)
+    client = await remove_orphofraphy(client)
+    employee = await remove_orphofraphy(employee)
+    responsible = await remove_orphofraphy(responsible)
 
     await sheet_write(agcm, name, date, client, employee, responsible)
 
