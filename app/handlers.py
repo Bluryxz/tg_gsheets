@@ -19,9 +19,9 @@ async def write(message: Message):
     responsible_pos = await find_word(text, 'исполнитель')
     
     name = text[:client_pos]
-    client = text[client_pos + 12:employee_pos]
-    employee = text[employee_pos + 11:responsible_pos]
-    responsible = text[responsible_pos + 13:]
+    client = text[client_pos + 11:employee_pos]
+    employee = text[employee_pos + 10:responsible_pos]
+    responsible = text[responsible_pos + 12:]
 
     name = await remove_orphofraphy(name)
     client = await remove_orphofraphy(client)

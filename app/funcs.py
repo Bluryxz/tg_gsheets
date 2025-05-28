@@ -8,7 +8,7 @@ async def remove_space(text):
         text = text[1:]
 
     if text[len(text) - 1] == ' ':
-        text = text[:len(text) - 2]
+        text = text[:len(text) - 1]
 
     return text
     
@@ -18,7 +18,7 @@ async def remove_orphofraphy(text):
     
     length = len(text)
     if text[length - 1] == '.' or text[length - 1] == ',' or text[length - 1] == ':':
-        text = text[:length - 2]
+        text = text[:length - 1]
 
     if text[0] == '.' or text[0] == ',' or text[0] == ':':
         text = text[1:]
