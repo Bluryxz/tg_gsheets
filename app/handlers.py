@@ -17,19 +17,25 @@ async def write(message: Message):
     client_pos = await find_word(text, 'контрагент')
     employee_pos = await find_word(text, 'сотрудник')
     responsible_pos = await find_word(text, 'исполнитель')
-    
-    name = text[:client_pos]
-    client = text[client_pos + 11:employee_pos]
-    employee = text[employee_pos + 10:responsible_pos]
-    responsible = text[responsible_pos + 12:]
 
-    name = await remove_orphofraphy(name)
-    client = await remove_orphofraphy(client)
-    employee = await remove_orphofraphy(employee)
-    responsible = await remove_orphofraphy(responsible)
+    if client_pos == -1 or employee_pos == -1 or responsible_pos == -1:
+            await message.react(
+        reaction=[{'type': 'emoji', 'emoji': '👎'}]
+        )
+    else:
+              
+        name = text[:client_pos]
+        client = text[client_pos + 11:employee_pos]
+        employee = text[employee_pos + 10:responsible_pos]
+        responsible = text[responsible_pos + 12:]
 
-    await sheet_write(agcm, name, date, client, employee, responsible)
+        name = await remove_orphofraphy(name)
+        client = await remove_orphofraphy(client)
+        employee = await remove_orphofraphy(employee)
+        responsible = await remove_orphofraphy(responsible)
 
-    await message.react(
-        reaction=[{'type': 'emoji', 'emoji': '👌'}]
-    )
+        await sheet_write(agcm, name, date, client, employee, responsible)
+
+        await message.react(
+            reaction=[{'type': 'emoji', 'emoji': '👌'}]
+        )
