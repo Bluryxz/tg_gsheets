@@ -1,5 +1,5 @@
 import gspread_asyncio
-from gspread_formatting import *
+from gspread_formatting import Color, Border, Borders, TextFormat, CellFormat, format_cell_range
 
 from google.oauth2.service_account import Credentials
 

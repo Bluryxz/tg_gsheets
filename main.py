@@ -1,6 +1,4 @@
 import asyncio
-import logging
-import sys
 from os import getenv
 from dotenv import load_dotenv
 
@@ -21,7 +19,6 @@ async def main():
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
