@@ -29,9 +29,10 @@ async def remove_orphofraphy(text):
 
 
 async def get_key(dictionary, value):
+    list = []
     for k, v in dictionary.items():
         if v == value:
-            return k
-        
-    return False
+            list.append(k)
+    
+    return list
     
