@@ -12,7 +12,7 @@ async def remove_space(text):
 
     return text
     
-
+        
 async def remove_orphofraphy(text):
     text = await remove_space(text)
     
@@ -26,3 +26,12 @@ async def remove_orphofraphy(text):
     text = await remove_space(text)
 
     return text
+
+
+async def get_key(dictionary, value):
+    for k, v in dictionary.items():
+        if v == value:
+            return k
+        
+    return False
+    

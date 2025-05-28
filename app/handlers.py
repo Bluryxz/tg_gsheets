@@ -2,7 +2,7 @@ from aiogram import Router
 from aiogram.types import Message
 
 from app.gsheets import sheet_write, agcm
-from app.funcs import find_word, remove_orphofraphy
+from app.funcs import find_word, remove_orphofraphy, get_key
 
 rt = Router()
 
@@ -18,10 +18,15 @@ async def write(message: Message):
     employee_pos = await find_word(text, 'сотрудник')
     responsible_pos = await find_word(text, 'исполнитель')
 
-    if client_pos == -1 or employee_pos == -1 or responsible_pos == -1:
-            await message.react(
-        reaction=[{'type': 'emoji', 'emoji': '👎'}]
-        )
+    pos = {'контрагент': client_pos, 'сотрудник': employee_pos, 'исполнитель': responsible_pos}
+
+    missing = await get_key(pos, -1)
+
+    if missing != False:
+         await message.react(
+         reaction=[{'type': 'emoji', 'emoji': '👎'}]     
+         )
+         await message.reply(f'Не заполнено поле "{missing}"')
     else:
               
         name = text[:client_pos]
