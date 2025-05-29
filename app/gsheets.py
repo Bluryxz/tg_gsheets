@@ -21,7 +21,7 @@ agcm = gspread_asyncio.AsyncioGspreadClientManager(get_creds)
 async def sheet_write(agcm, name, date, client, employee, responsible):
     agc = await agcm.authorize()
 
-    sh = await agc.open("апи тест")
+    sh = await agc.open("Задачи Портал")
     sh = await sh.get_worksheet(0) 
     
     number = 1
